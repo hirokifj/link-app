@@ -39,12 +39,10 @@
   },
   "lint-staged": {
     "**/*.{js,vue}": [
-      "yarn lint:js",
-      "git add"
+      "yarn lint:js"
     ],
     "**/*.{vue,css,scss}": [
-      "yarn lint:style",
-      "git add"
+      "yarn lint:style"
     ]
   }
 }
