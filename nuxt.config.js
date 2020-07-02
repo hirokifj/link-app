@@ -49,7 +49,11 @@ export default {
     '@nuxtjs/eslint-module',
     // Doc: https://github.com/nuxt-community/stylelint-module
     '@nuxtjs/stylelint-module',
+    '@nuxtjs/style-resources',
   ],
+  styleResources: {
+    scss: ['~/assets/scss/abstracts/_entry.scss'],
+  },
   /*
    ** Nuxt.js modules
    */

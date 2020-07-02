@@ -1,0 +1,42 @@
+// カラーパレット
+$color-white: #fff;
+$color-black: #000;
+
+$color-primary: #0e2a47;
+$color-primary-light: lighten($color-primary, 10%);
+$color-primary-dark: darken($color-primary, 10%);
+
+$color-secondary: #113255;
+$color-secondary-light: lighten($color-secondary, 10%);
+$color-secondary-dark: darken($color-secondary, 10%);
+
+$color-tertiary: #d8eefe;
+$color-tertiary-light: lighten($color-tertiary, 10%);
+$color-tertiary-dark: darken($color-tertiary, 10%);
+
+$color-gray-light-1: #EDF2F7;
+$color-gray-light-2: #e2e8f0;
+$color-gray-light-3: #F7FAFC;
+$color-gray-light-4: #F3F3F4;
+$color-gray-dark-1: #4a5568;
+$color-gray-dark-2: #333;
+
+$color-text: $color-gray-dark-1;
+
+$color-bg-gray: $color-gray-light-3;
+$color-border-gray: $color-gray-light-2;
+
+// Typography
+$default-font-size: 16px;
+$font-family: -apple-system,
+  blinkmacsystemfont,
+  "Helvetica Neue",
+  yugothic,
+  "ヒラギノ角ゴ ProN W3",
+  hiragino kaku gothic pron,
+  arial,
+  "メイリオ",
+  meiryo,
+  sans-serif;
+
+$content-width: 1110px;
