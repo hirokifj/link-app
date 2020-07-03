@@ -13,6 +13,7 @@
     "lint": "yarn lint:js && yarn lint:style"
   },
   "dependencies": {
+    "firebase": "^7.15.5",
     "nuxt": "^2.13.0"
   },
   "devDependencies": {
