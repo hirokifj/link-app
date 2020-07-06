@@ -1,4 +1,5 @@
 import * as firebase from 'firebase/app'
+import 'firebase/auth'
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -11,3 +12,10 @@ const firebaseConfig = {
 }
 
 firebase.initializeApp(firebaseConfig)
+
+const FirebasePlugin = (context, inject) => {
+  inject('firebase', firebase)
+  inject('auth', firebase.auth())
+}
+
+export default FirebasePlugin
