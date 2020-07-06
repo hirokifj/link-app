@@ -2,6 +2,9 @@
   <div class="signup-page-container">
     <div class="form">
       <div class="formwrapper">
+        <div v-if="errMsg" class="errmsg">
+          <span class="msg">{{ errMsg }}</span>
+        </div>
         <div class="socialbox">
           <SocialLoginBtn provider="google" text="Googleで登録" />
           <SocialLoginBtn provider="github" text="Githubで登録" />
@@ -10,7 +13,7 @@
           <span>or</span>
         </div>
         <div class="form">
-          <SignupForm />
+          <SignupForm @onSubmit="signUp" />
         </div>
       </div>
     </div>
@@ -21,11 +24,31 @@
 import SocialLoginBtn from '~/components/SocialLoginBtn'
 import SignupForm from '~/components/SignupForm'
 
+import { getFirebaseErrMsgInJP } from '~/lib/functions'
+
 export default {
   layout: 'single',
   components: {
     SocialLoginBtn,
     SignupForm,
+  },
+  data() {
+    return {
+      errMsg: '',
+    }
+  },
+  methods: {
+    async signUp(formData) {
+      try {
+        await this.$auth.createUserWithEmailAndPassword(
+          formData.email,
+          formData.password
+        )
+        this.$router.push('/home')
+      } catch (error) {
+        this.errMsg = getFirebaseErrMsgInJP(error.code)
+      }
+    },
   },
 }
 </script>
@@ -49,6 +72,12 @@ export default {
   padding: 60px 80px;
   background-color: $color-white;
   border-radius: 10px;
+}
+
+.signup-page-container > .form > .formwrapper > .errmsg {
+  margin-bottom: 20px;
+  color: red;
+  text-align: center;
 }
 
 .signup-page-container > .form > .formwrapper > .socialbox {
