@@ -23,6 +23,9 @@
         登録
       </AppBtn>
     </div>
+    <div class="link">
+      <TextLink to="/login">既にアカウントをお持ちですか？</TextLink>
+    </div>
   </div>
 </template>
 
@@ -64,6 +67,10 @@ export default {
 }
 
 .signup-form > .control > .label {
+  margin-bottom: 8px;
+}
+
+.signup-form > .submit {
   margin-bottom: 8px;
 }
 </style>
