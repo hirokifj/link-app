@@ -6,7 +6,11 @@
           <span class="msg">{{ errMsg }}</span>
         </div>
         <div class="socialbox">
-          <SocialLoginBtn provider="google" text="Googleで登録" />
+          <SocialLoginBtn
+            provider="google"
+            text="Googleで登録"
+            @click="socialLogin('google')"
+          />
           <SocialLoginBtn provider="github" text="Githubで登録" />
         </div>
         <div class="boundary">
@@ -44,6 +48,21 @@ export default {
           formData.email,
           formData.password
         )
+        this.$router.push('/home')
+      } catch (error) {
+        this.errMsg = getFirebaseErrMsgInJP(error.code)
+      }
+    },
+    // ソーシャルアカウンでのログイン処理
+    async socialLogin(type) {
+      let provider
+
+      if (type === 'google') {
+        provider = new this.$firebase.auth.GoogleAuthProvider()
+      }
+
+      try {
+        await this.$auth.signInWithPopup(provider)
         this.$router.push('/home')
       } catch (error) {
         this.errMsg = getFirebaseErrMsgInJP(error.code)

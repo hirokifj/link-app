@@ -14,6 +14,12 @@ export const getFirebaseErrMsgInJP = (code) => {
     case 'auth/weak-password':
       errMsg = 'パスワードは6文字以上で入力してください。'
       break
+    case 'auth/popup-blocked':
+      errMsg = 'ブラウザによってポップアップがブロックされました。'
+      break
+    case 'auth/popup-closed-by-user':
+      errMsg = 'ポップアップが閉じられました。'
+      break
     default:
       errMsg = '処理に失敗しました。時間をおいて再度お試しください。'
       break
