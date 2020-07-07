@@ -14,6 +14,15 @@ export const getFirebaseErrMsgInJP = (code) => {
     case 'auth/weak-password':
       errMsg = 'パスワードは6文字以上で入力してください。'
       break
+    case 'auth/user-disabled':
+      errMsg = '無効のユーザーアカウントです。'
+      break
+    case 'auth/user-not-found':
+      errMsg = 'ユーザーが見つかりませんでした。'
+      break
+    case 'auth/wrong-password':
+      errMsg = '認証情報が一致しません。'
+      break
     case 'auth/popup-blocked':
       errMsg = 'ブラウザによってポップアップがブロックされました。'
       break
