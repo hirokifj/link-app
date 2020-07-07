@@ -6,7 +6,7 @@
         <div class="side">
           <TheSidebar />
         </div>
-        <div class="content u-bg-gray">
+        <div class="content _bg-gray">
           <Nuxt />
         </div>
       </div>
