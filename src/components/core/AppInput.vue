@@ -27,5 +27,9 @@ export default {
     border-bottom: 2px solid $color-primary;
     outline: none;
   }
+
+  &[disabled] {
+    background-color: darken($color-gray-light-4, 20%);
+  }
 }
 </style>
