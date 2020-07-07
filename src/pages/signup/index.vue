@@ -46,11 +46,22 @@ export default {
       this.errMsg = ''
 
       try {
-        await this.$auth.createUserWithEmailAndPassword(
+        const credential = await this.$auth.createUserWithEmailAndPassword(
           formData.email,
           formData.password
         )
-        this.$router.push('/home')
+        const user = credential.user
+
+        // usersコレクションへのドキュメント追加（cloud functionsで実行）を監視
+        const unsubscribe = this.$firebase
+          .firestore()
+          .doc(`users/${user.uid}`)
+          .onSnapshot((snapshot) => {
+            if (snapshot.exists) {
+              unsubscribe()
+              this.$router.push('/home')
+            }
+          })
       } catch (error) {
         this.errMsg = getFirebaseErrMsgInJP(error.code)
       }
