@@ -9,7 +9,7 @@
           <SocialLoginBtn
             provider="google"
             text="Googleで登録"
-            @click="socialLogin('google')"
+            @click="signUp('google')"
           />
           <SocialLoginBtn provider="github" text="Githubで登録" />
         </div>
@@ -17,7 +17,7 @@
           <span>or</span>
         </div>
         <div class="form">
-          <SignupForm @onSubmit="signUp" />
+          <SignupForm @onSubmit="signUp('email', $event)" />
         </div>
       </div>
     </div>
@@ -42,14 +42,25 @@ export default {
     }
   },
   methods: {
-    async signUp(formData) {
+    async signUp(type, formData = {}) {
+      // エラーメッセージ初期化
       this.errMsg = ''
 
       try {
-        const credential = await this.$auth.createUserWithEmailAndPassword(
-          formData.email,
-          formData.password
-        )
+        // ユーザーの登録処理
+        let credential = null
+        if (type === 'email') {
+          credential = await this.$auth.createUserWithEmailAndPassword(
+            formData.email,
+            formData.password
+          )
+        } else if (type === 'google') {
+          credential = await this.$auth.signInWithPopup(
+            new this.$firebase.auth.GoogleAuthProvider()
+          )
+        }
+
+        // 登録したユーザーを取得
         const user = credential.user
 
         // usersコレクションへのドキュメント追加（cloud functionsで実行）を監視
@@ -58,26 +69,12 @@ export default {
           .doc(`users/${user.uid}`)
           .onSnapshot((snapshot) => {
             if (snapshot.exists) {
+              // 監視を解除
               unsubscribe()
+              // homeへリダイレクト
               this.$router.push('/home')
             }
           })
-      } catch (error) {
-        this.errMsg = getFirebaseErrMsgInJP(error.code)
-      }
-    },
-    // ソーシャルアカウンでのログイン処理
-    async socialLogin(type) {
-      this.errMsg = ''
-
-      let provider
-      if (type === 'google') {
-        provider = new this.$firebase.auth.GoogleAuthProvider()
-      }
-
-      try {
-        await this.$auth.signInWithPopup(provider)
-        this.$router.push('/home')
       } catch (error) {
         this.errMsg = getFirebaseErrMsgInJP(error.code)
       }
