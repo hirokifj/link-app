@@ -6,14 +6,18 @@
           <span class="msg">{{ errMsg }}</span>
         </div>
         <div class="socialbox">
-          <SocialLoginBtn provider="google" text="Googleでログイン" />
+          <SocialLoginBtn
+            provider="google"
+            text="Googleでログイン"
+            @click="login('google')"
+          />
           <SocialLoginBtn provider="github" text="Githubでログイン" />
         </div>
         <div class="boundary">
           <span>or</span>
         </div>
         <div class="form">
-          <LoginForm @onSubmit="login" />
+          <LoginForm @onSubmit="login('email', $event)" />
         </div>
       </div>
     </div>
@@ -38,14 +42,20 @@ export default {
     }
   },
   methods: {
-    async login(formData) {
+    async login(type, formData = {}) {
       this.errMsg = ''
 
       try {
-        await this.$auth.signInWithEmailAndPassword(
-          formData.email,
-          formData.password
-        )
+        if (type === 'email') {
+          await this.$auth.signInWithEmailAndPassword(
+            formData.email,
+            formData.password
+          )
+        } else if (type === 'google') {
+          await this.$auth.signInWithPopup(
+            new this.$firebase.auth.GoogleAuthProvider()
+          )
+        }
 
         this.$router.push('/home')
       } catch (error) {
