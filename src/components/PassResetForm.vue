@@ -7,6 +7,7 @@
         v-model="email"
         type="text"
         placeholder="メールアドレス"
+        :disabled="isDone"
       />
     </div>
     <div class="submit">
@@ -27,6 +28,12 @@ export default {
     AppLabel,
     AppInput,
     AppBtn,
+  },
+  props: {
+    isDone: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {

@@ -6,7 +6,7 @@
           <span class="msg">{{ errMsg }}</span>
         </div>
         <div class="form">
-          <PassResetForm @onSubmit="sendMail" />
+          <PassResetForm :is-done="isDone" @onSubmit="sendMail" />
         </div>
         <div class="text">
           <p v-if="!isDone">
