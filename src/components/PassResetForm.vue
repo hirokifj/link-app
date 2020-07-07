@@ -10,7 +10,7 @@
       />
     </div>
     <div class="submit">
-      <AppBtn class="-primary -big -full">
+      <AppBtn class="-primary -big -full" @click="submit">
         メール送信
       </AppBtn>
     </div>

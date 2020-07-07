@@ -2,12 +2,18 @@
   <div class="pass-reset-page-container">
     <div class="form">
       <div class="formwrapper">
+        <div v-if="errMsg" class="errmsg">
+          <span class="msg">{{ errMsg }}</span>
+        </div>
         <div class="form">
-          <PassResetForm />
+          <PassResetForm @onSubmit="sendMail" />
         </div>
         <div class="text">
-          <p>
+          <p v-if="!isDone">
             パスワード再設定メールを送信します。<br />登録したメールアドレスを入力してください。
+          </p>
+          <p v-else class="green">
+            パスワード再設定メールを送信しました。
           </p>
         </div>
       </div>
@@ -18,10 +24,38 @@
 <script>
 import PassResetForm from '~/components/PassResetForm'
 
+import { getFirebaseErrMsgInJP } from '~/lib/functions'
+
 export default {
   layout: 'single',
   components: {
     PassResetForm,
+  },
+  data() {
+    return {
+      errMsg: '',
+      isDone: false,
+    }
+  },
+  methods: {
+    async sendMail(formData) {
+      // メール送信済みの場合は、処理スキップ
+      if (this.isDone) return
+
+      this.errMsg = ''
+
+      try {
+        await this.$auth.sendPasswordResetEmail(formData.email, {
+          // TODO: URLを修正する。
+          url: 'http://localhost:3000/signin',
+        })
+
+        // 処理完了フラグを立てる
+        this.isDone = true
+      } catch (error) {
+        this.errMsg = getFirebaseErrMsgInJP(error.code)
+      }
+    },
   },
 }
 </script>
@@ -63,5 +97,9 @@ export default {
   width: 90%;
   margin: 0 auto;
   text-align: center;
+}
+
+.pass-reset-page-container > .form > .formwrapper > .text > .green {
+  color: green;
 }
 </style>
