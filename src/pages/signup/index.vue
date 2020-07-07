@@ -43,6 +43,8 @@ export default {
   },
   methods: {
     async signUp(formData) {
+      this.errMsg = ''
+
       try {
         await this.$auth.createUserWithEmailAndPassword(
           formData.email,
@@ -55,8 +57,9 @@ export default {
     },
     // ソーシャルアカウンでのログイン処理
     async socialLogin(type) {
-      let provider
+      this.errMsg = ''
 
+      let provider
       if (type === 'google') {
         provider = new this.$firebase.auth.GoogleAuthProvider()
       }
