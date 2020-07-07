@@ -2,15 +2,22 @@
   <div class="signup-page-container">
     <div class="form">
       <div class="formwrapper">
+        <div v-if="errMsg" class="errmsg">
+          <span class="msg">{{ errMsg }}</span>
+        </div>
         <div class="socialbox">
-          <SocialLoginBtn provider="google" text="Googleで登録" />
+          <SocialLoginBtn
+            provider="google"
+            text="Googleで登録"
+            @click="signUp('google')"
+          />
           <SocialLoginBtn provider="github" text="Githubで登録" />
         </div>
         <div class="boundary">
           <span>or</span>
         </div>
         <div class="form">
-          <SignupForm />
+          <SignupForm @onSubmit="signUp('email', $event)" />
         </div>
       </div>
     </div>
@@ -21,11 +28,57 @@
 import SocialLoginBtn from '~/components/SocialLoginBtn'
 import SignupForm from '~/components/SignupForm'
 
+import { getFirebaseErrMsgInJP } from '~/lib/functions'
+
 export default {
   layout: 'single',
   components: {
     SocialLoginBtn,
     SignupForm,
+  },
+  data() {
+    return {
+      errMsg: '',
+    }
+  },
+  methods: {
+    async signUp(type, formData = {}) {
+      // エラーメッセージ初期化
+      this.errMsg = ''
+
+      try {
+        // ユーザーの登録処理
+        let credential = null
+        if (type === 'email') {
+          credential = await this.$auth.createUserWithEmailAndPassword(
+            formData.email,
+            formData.password
+          )
+        } else if (type === 'google') {
+          credential = await this.$auth.signInWithPopup(
+            new this.$firebase.auth.GoogleAuthProvider()
+          )
+        }
+
+        // 登録したユーザーを取得
+        const user = credential.user
+
+        // usersコレクションへのドキュメント追加（cloud functionsで実行）を監視
+        const unsubscribe = this.$firebase
+          .firestore()
+          .doc(`users/${user.uid}`)
+          .onSnapshot((snapshot) => {
+            if (snapshot.exists) {
+              // 監視を解除
+              unsubscribe()
+              // homeへリダイレクト
+              this.$router.push('/home')
+            }
+          })
+      } catch (error) {
+        this.errMsg = getFirebaseErrMsgInJP(error.code)
+      }
+    },
   },
 }
 </script>
@@ -49,6 +102,12 @@ export default {
   padding: 60px 80px;
   background-color: $color-white;
   border-radius: 10px;
+}
+
+.signup-page-container > .form > .formwrapper > .errmsg {
+  margin-bottom: 20px;
+  color: red;
+  text-align: center;
 }
 
 .signup-page-container > .form > .formwrapper > .socialbox {
