@@ -13,7 +13,7 @@
           <span>or</span>
         </div>
         <div class="form">
-          <LoginForm />
+          <LoginForm @onSubmit="login" />
         </div>
       </div>
     </div>
@@ -23,6 +23,8 @@
 <script>
 import SocialLoginBtn from '~/components/SocialLoginBtn'
 import LoginForm from '~/components/LoginForm'
+
+import { getFirebaseErrMsgInJP } from '~/lib/functions'
 
 export default {
   layout: 'single',
@@ -34,6 +36,22 @@ export default {
     return {
       errMsg: '',
     }
+  },
+  methods: {
+    async login(formData) {
+      this.errMsg = ''
+
+      try {
+        await this.$auth.signInWithEmailAndPassword(
+          formData.email,
+          formData.password
+        )
+
+        this.$router.push('/home')
+      } catch (error) {
+        this.errMsg = getFirebaseErrMsgInJP(error.code)
+      }
+    },
   },
 }
 </script>
