@@ -12,7 +12,7 @@
       </div>
       <div class="control -img">
         <AppLabel class="label" text="プロフィール画像" />
-        <PreviewImgInput @change="onFileInput" />
+        <PreviewImgInput :uploaded-img-path="photoUrl" @change="onFileInput" />
       </div>
       <div class="control">
         <AppLabel for="jobtype" class="label" text="職種" />
@@ -85,6 +85,16 @@ export default {
     PreviewImgInput,
     TagSelectInput,
   },
+  props: {
+    originalData: {
+      type: Object,
+      default: null,
+    },
+    photoUrl: {
+      type: String,
+      default: '',
+    },
+  },
   data() {
     return {
       formData: {
@@ -95,8 +105,8 @@ export default {
         comment: '',
         url1: '',
         url2: '',
-        newFile: null,
       },
+      newFile: '',
     }
   },
   computed: {
@@ -106,6 +116,10 @@ export default {
         value: type,
       })),
     statusOptions: () => StatusTags,
+  },
+  created() {
+    // サーバー情報で初期化する。
+    this.formData = this.originalData
   },
   methods: {
     onFileInput(newFile) {

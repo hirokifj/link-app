@@ -4,7 +4,7 @@
       <PageTitle>プロフィール編集</PageTitle>
     </div>
     <div class="form">
-      <UserEditForm />
+      <UserEditForm :original-data="userData" :photo-url="photoUrl" />
     </div>
   </div>
 </template>
