@@ -136,7 +136,10 @@ export default {
       }
     },
     submit() {
-      this.$emit('onSubmit', this.formData)
+      this.$emit('onSubmit', {
+        ...this.formData,
+        newFile: this.newFile,
+      })
     },
   },
 }
