@@ -17,6 +17,25 @@ export default {
     UserEditForm,
   },
   middleware: 'auth',
+  async asyncData(context) {
+    const userDocSnapshot = await context.$firebase
+      .firestore()
+      .collection('users')
+      .doc(context.$currentUser.get().id)
+      .get()
+
+    return {
+      userData: {
+        ...userDocSnapshot.data(),
+        name: context.$currentUser.get().displayName,
+      },
+    }
+  },
+  computed: {
+    photoUrl() {
+      return this.$currentUser.get().photoUrl
+    },
+  },
 }
 </script>
 
