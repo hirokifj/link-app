@@ -4,7 +4,7 @@
       <PageTitle>プロフィール編集</PageTitle>
     </div>
     <div class="form">
-      <UserEditForm :original-data="userData" :photo-url="photoUrl" />
+      <UserEditForm :original-data="userData" :photo-url="userData.photoUrl" />
     </div>
   </div>
 </template>
@@ -27,14 +27,8 @@ export default {
     return {
       userData: {
         ...userDocSnapshot.data(),
-        name: context.$currentUser.get().displayName,
       },
     }
-  },
-  computed: {
-    photoUrl() {
-      return this.$currentUser.get().photoUrl
-    },
   },
 }
 </script>

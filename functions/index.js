@@ -16,6 +16,8 @@ exports.onCreateUser = functions
       if (!userDoc.exists) {
         await t.set(userRef, {
           displayId: '',
+          name: user.displayName || '',
+          photoUrl: user.photoURL || '',
           type: '',
           statusTags: [],
           copy: '',
