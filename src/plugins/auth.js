@@ -8,6 +8,7 @@ const authPlugin = (context, inject) => {
       state.currentUser = {
         id: user.uid,
         displayName: user.displayName,
+        photoUrl: user.photoURL,
       }
     } else {
       state.currentUser = null

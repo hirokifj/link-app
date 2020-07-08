@@ -15,13 +15,13 @@ exports.onCreateUser = functions
       // ドキュメントが存在しない場合のみ処理する
       if (!userDoc.exists) {
         await t.set(userRef, {
-          displayId: 'aaa',
-          name: user.displayName,
-          profileImg: '',
+          displayId: '',
           type: '',
-          status: [],
+          statusTags: [],
           copy: '',
           comment: '',
+          url1: '',
+          url2: '',
           createdAt: new Date(),
           updatedAt: new Date(),
         })
