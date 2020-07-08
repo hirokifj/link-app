@@ -138,7 +138,7 @@ export default {
     },
     submit() {
       this.$emit('onSubmit', {
-        ...this.formData,
+        newData: R.clone(this.formData),
         newFile: this.newFile,
       })
     },
