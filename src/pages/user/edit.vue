@@ -16,6 +16,7 @@ export default {
   components: {
     UserEditForm,
   },
+  middleware: 'auth',
 }
 </script>
 
