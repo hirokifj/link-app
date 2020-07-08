@@ -76,6 +76,7 @@
 </template>
 
 <script>
+import * as R from 'ramda'
 import PreviewImgInput from '~/components/PreviewImgInput'
 import TagSelectInput from '~/components/TagSelectInput'
 import { JobType, StatusTags } from '~/lib/definitions/userdata'
@@ -119,7 +120,7 @@ export default {
   },
   created() {
     // サーバー情報で初期化する。
-    this.formData = this.originalData
+    this.formData = R.clone(this.originalData)
   },
   methods: {
     onFileInput(newFile) {
