@@ -18,3 +18,14 @@ export const updateDisplayId = async (userId, displayId) => {
     displayId,
   })
 }
+
+// ユーザ情報の取得処理
+export const fetchUserById = async (userId) => {
+  const userDocSnapshot = await firebase
+    .firestore()
+    .collection('users')
+    .doc(userId)
+    .get()
+
+  return userDocSnapshot.data()
+}
