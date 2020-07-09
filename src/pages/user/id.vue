@@ -16,21 +16,17 @@
 <script>
 import UserSetIdForm from '~/components/user/UserSetIdForm'
 import { isHankakuEisu, getFirebaseErrMsgInJP } from '~/lib/functions'
-import { displayIdExists, updateDisplayId } from '~/lib/api/user'
+import { fetchUserById, displayIdExists, updateDisplayId } from '~/lib/api/user'
 
 export default {
   components: {
     UserSetIdForm,
   },
-  async asyncData({ $firebase, $currentUser }) {
-    const userDocSnapshot = await $firebase
-      .firestore()
-      .collection('users')
-      .doc($currentUser.get().id)
-      .get()
+  async asyncData({ $currentUser }) {
+    const user = await fetchUserById($currentUser.get().id)
 
     return {
-      displayId: userDocSnapshot.data().displayId,
+      displayId: user.displayId,
     }
   },
   data() {
