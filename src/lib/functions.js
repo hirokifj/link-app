@@ -46,3 +46,6 @@ export const getHash = (str, type = 'SHA-256') => {
 
   return shaObj.getHash('HEX')
 }
+
+// 渡された文字列が半角英数字かチェックする
+export const isHankakuEisu = (str) => !!str.match(/^[A-Za-z0-9]+$/)
