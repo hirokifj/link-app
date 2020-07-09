@@ -4,7 +4,7 @@
       <PageTitle>ID設定</PageTitle>
     </div>
     <div class="form">
-      <UserSetIdForm :err-msg="errMsg" />
+      <UserSetIdForm :err-msg="errMsg" :user-id="displayId" />
     </div>
   </div>
 </template>
@@ -15,6 +15,17 @@ import UserSetIdForm from '~/components/user/UserSetIdForm'
 export default {
   components: {
     UserSetIdForm,
+  },
+  async asyncData({ $firebase, $currentUser }) {
+    const userDocSnapshot = await $firebase
+      .firestore()
+      .collection('users')
+      .doc($currentUser.get().id)
+      .get()
+
+    return {
+      displayId: userDocSnapshot.data().displayId,
+    }
   },
   data() {
     return {
