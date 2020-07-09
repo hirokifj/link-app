@@ -27,5 +27,12 @@ export const fetchUserById = async (userId) => {
     .doc(userId)
     .get()
 
-  return userDocSnapshot.data()
+  if (userDocSnapshot.exists) {
+    return {
+      id: userDocSnapshot.id,
+      ...userDocSnapshot.data(),
+    }
+  } else {
+    return null
+  }
 }
