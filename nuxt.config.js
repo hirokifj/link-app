@@ -67,7 +67,12 @@ export default {
         component: 'fa',
       },
     ],
+    '@nuxtjs/dayjs',
   ],
+  dayjs: {
+    locales: ['ja'],
+    defaultLocale: 'ja',
+  },
   /*
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
