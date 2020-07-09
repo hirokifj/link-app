@@ -63,7 +63,11 @@ export default {
 }
 
 .user-set-id-form > .text {
-  margin-bottom: 32px;
+  margin-bottom: 24px;
+}
+
+.user-set-id-form > .submit {
+  margin-bottom: 10px;
 }
 
 .user-set-id-form > .err {
