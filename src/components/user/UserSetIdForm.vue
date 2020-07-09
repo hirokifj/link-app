@@ -11,7 +11,7 @@
     </div>
     <div class="text">
       <p>ユーザ検索に利用するIDです。</p>
-      <p>英数字で入力してください。</p>
+      <p>半角英数字で入力してください。</p>
     </div>
     <div class="submit">
       <AppBtn class="-primary" @click="submit">IDを設定する</AppBtn>
