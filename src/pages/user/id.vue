@@ -35,6 +35,7 @@ export default {
       displayId: user.displayId,
     }
   },
+  middleware: 'auth',
   data() {
     return {
       errMsg: '',
