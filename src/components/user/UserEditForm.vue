@@ -124,7 +124,7 @@ export default {
   },
   methods: {
     onFileInput(newFile) {
-      this.formData.newFile = newFile
+      this.newFile = newFile
     },
     onChangeStatusTag({ type, targetItem }) {
       if (type === 'select') {
