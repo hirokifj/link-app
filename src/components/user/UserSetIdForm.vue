@@ -1,12 +1,12 @@
 <template>
   <div class="user-set-id-form">
     <div class="control">
-      <AppLabel class="label" text="ユーザーID" />
+      <AppLabel class="label" text="ユーザID" />
       <AppInput
         id="username"
         v-model="formUserId"
         type="text"
-        placeholder="ユーザーID"
+        placeholder="ユーザID"
       />
     </div>
     <div class="text">
