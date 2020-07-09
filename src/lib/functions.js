@@ -1,3 +1,5 @@
+import JsSHA from 'jssha'
+
 export const getFirebaseErrMsgInJP = (code) => {
   let errMsg = ''
 
@@ -35,4 +37,12 @@ export const getFirebaseErrMsgInJP = (code) => {
   }
 
   return errMsg
+}
+
+// 渡された文字列をハッシュ化して返す。
+export const getHash = (str, type = 'SHA-256') => {
+  const shaObj = new JsSHA(type, 'TEXT')
+  shaObj.update(str)
+
+  return shaObj.getHash('HEX')
 }
