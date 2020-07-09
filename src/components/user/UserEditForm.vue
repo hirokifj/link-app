@@ -72,6 +72,9 @@
     <div class="btnbox">
       <AppBtn class="-primary -big -full" @click="submit">編集する</AppBtn>
     </div>
+    <div v-if="errMsg" class="err">
+      <span>{{ errMsg }}</span>
+    </div>
   </div>
 </template>
 
@@ -92,6 +95,10 @@ export default {
       default: null,
     },
     photoUrl: {
+      type: String,
+      default: '',
+    },
+    errMsg: {
       type: String,
       default: '',
     },
@@ -169,5 +176,10 @@ export default {
 
 .user-edit-form > .btnbox {
   width: 60%;
+}
+
+.user-edit-form > .err {
+  padding-top: 20px;
+  color: red;
 }
 </style>
