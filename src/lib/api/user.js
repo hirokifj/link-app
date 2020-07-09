@@ -29,7 +29,6 @@ export const fetchUserById = async (userId) => {
 
   if (userDocSnapshot.exists) {
     return {
-      id: userDocSnapshot.id,
       ...userDocSnapshot.data(),
     }
   } else {
