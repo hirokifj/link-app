@@ -22,8 +22,14 @@ export default {
   components: {
     UserSetIdForm,
   },
-  async asyncData({ $currentUser }) {
+  async asyncData({ $currentUser, redirect }) {
     const user = await fetchUserById($currentUser.get().id)
+
+    // ユーザが取得できなかった場合はリダイレクト
+    if (!user) {
+      redirect('/home')
+      return
+    }
 
     return {
       displayId: user.displayId,
