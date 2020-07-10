@@ -19,6 +19,12 @@
               <span class="text">プロフィール設定</span>
             </nuxt-link>
           </li>
+          <li class="item">
+            <nuxt-link to="/user/id" class="link">
+              <i class="fas fa-home icon"></i>
+              <span class="text">ユーザID設定</span>
+            </nuxt-link>
+          </li>
         </ul>
       </nav>
     </div>

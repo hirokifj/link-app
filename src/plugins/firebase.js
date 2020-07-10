@@ -22,4 +22,6 @@ const FirebasePlugin = (context, inject) => {
   inject('storage', firebase.storage())
 }
 
+export { firebase }
+
 export default FirebasePlugin
